@@ -231,6 +231,9 @@ section[id]{scroll-margin-top:84px}
 .chips button{font:500 13px/1 var(--mono);padding:9px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);cursor:pointer;transition:all .2s}
 .chips button:hover{border-color:var(--accent);color:var(--accent)}
 
+.tools{display:flex;align-items:center;gap:8px}
+.lang{font:600 13px/1 var(--mono);padding:11px 12px;border:1px solid var(--line);border-radius:calc(var(--radius) + 4px);background:var(--surface);color:var(--fg);cursor:pointer;transition:all .2s}
+.lang:hover{border-color:var(--accent);color:var(--accent)}
 @media (max-width:860px){.nav{display:none}}
 @media (max-width:480px){.term-in label{font-size:12px}.term-out{height:300px;font-size:13px}}
 
@@ -259,10 +262,13 @@ section[id]{scroll-margin-top:84px}
     <nav class="nav" aria-label="Secciones">
       <a href="#aporto">aporto</a><a href="#experiencia">experiencia</a><a href="#stack">stack</a><a href="#formacion">formación</a><a href="#terminal">terminal</a><a href="#contacto">contacto</a>
     </nav>
+    <div class="tools">
     <div class="switch" role="group" aria-label="Estilo del portfolio">
       <button type="button" id="s-terminal" data-s="terminal">terminal</button>
       <button type="button" id="s-minimal" data-s="minimal">minimal</button>
       <button type="button" id="s-neon" data-s="neon">neón</button>
+    </div>
+    <button type="button" class="lang" id="lang" aria-label="Ver en inglés">EN</button>
     </div>
   </div>
 </header>
@@ -273,7 +279,7 @@ section[id]{scroll-margin-top:84px}
       <span class="prompt"><b>javier@alicante</b>:<i>~</i>$ whoami</span>
       <div class="eyebrow"><span class="dot"></span> Disponible para nuevos retos · Alicante, España</div>
       <h1>Javier <span class="last">Cano</span></h1>
-      <p class="role">Operaciones IT &amp; <em id="typed">Ciberseguridad</em></p>
+      <p class="role"><span id="role-a">Operaciones IT</span> &amp; <em id="typed">Ciberseguridad</em></p>
       <p class="intro">Trabajo como DSO en Recursos en la red, supervisando infraestructuras, analizando logs y resolviendo incidencias en tiempo real. Vengo de administrar redes y sistemas, y me especialicé en ciberseguridad porque me gusta entender cómo se rompen las cosas para que no se rompan.</p>
       <div class="ctas">
         <a class="btn primary" href="#contacto">Contactar</a>
@@ -401,7 +407,7 @@ section[id]{scroll-margin-top:84px}
           <h2><span class="cmd">$ locale </span><span class="num">05</span>Idiomas</h2>
           <div class="langs">
             <div class="lang"><div class="row">Español <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
-            <div class="lang"><div class="row">Catalán <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
+            <div class="lang"><div class="row">Valenciano <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
             <div class="lang"><div class="row">Inglés <span>profesional</span></div><div class="meter"><i style="width:72%"></i></div></div>
             <div class="lang"><div class="row">Francés <span>básico</span></div><div class="meter"><i style="width:30%"></i></div></div>
           </div>
@@ -447,6 +453,9 @@ section[id]{scroll-margin-top:84px}
 (function(){
   const root=document.documentElement;
   const styles=["terminal","minimal","neon"];
+  let lang="es";
+  try{const q=localStorage.getItem("pf-lang");if(q==="es"||q==="en")lang=q}catch(e){}
+  const L=(es,en)=>lang==="en"?en:es;
   function apply(s){
     if(!styles.includes(s)) s="terminal";
     root.setAttribute("data-style",s);
@@ -454,20 +463,21 @@ section[id]{scroll-margin-top:84px}
     try{localStorage.setItem("pf-style",s)}catch(e){}
     if(s==="neon") startNet(); else stopNet();
   }
-  let start=location.hash.replace("#","");
+  let start=location.hash.slice(1);
+  if(start==="es"||start==="en"){lang=start;start=""}
   if(!styles.includes(start)){ try{start=localStorage.getItem("pf-style")||"terminal"}catch(e){start="terminal"} }
   document.querySelectorAll(".switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.s)));
 
-  // copy email
+  // copiar email
   const copy=document.getElementById("copy");
   copy.addEventListener("click",()=>{
     const t=document.getElementById("email").textContent;
-    const done=()=>{copy.textContent="¡Copiado!";setTimeout(()=>copy.textContent="Copiar email",1600)};
-    const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("email"));const s=getSelection();s.removeAllRanges();s.addRange(r);copy.textContent="Selecciónalo y copia"};
+    const done=()=>{copy.textContent=L("¡Copiado!","Copied!");setTimeout(()=>copy.textContent=L("Copiar email","Copy email"),1600)};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("email"));const s=getSelection();s.removeAllRanges();s.addRange(r);copy.textContent=L("Selecciónalo y copia","Select it and copy")};
     try{navigator.clipboard.writeText(t).then(done,fallback)}catch(e){fallback()}
   });
 
-  // neon: network of nodes (like a LAN map)
+  // neón: red de nodos (como un mapa de red)
   const cv=document.getElementById("net"),ctx=cv.getContext("2d");
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   let nodes=[],raf=null,W=0,H=0,mouse={x:-999,y:-999};
@@ -491,13 +501,15 @@ section[id]{scroll-margin-top:84px}
 
   // duración de cada puesto (meses inclusivos, como cuenta LinkedIn)
   const pl=(n,s,p)=>n+" "+(n===1?s:p);
-  document.querySelectorAll(".dur").forEach(el=>{
-    const [fy,fm]=el.dataset.from.split("-").map(Number);
-    const now=new Date();
-    const [ty,tm]=el.dataset.to?el.dataset.to.split("-").map(Number):[now.getFullYear(),now.getMonth()+1];
-    const m=(ty-fy)*12+(tm-fm)+1,y=Math.floor(m/12),r=m%12;
-    el.textContent=[y?pl(y,"año","años"):"",r?pl(r,"mes","meses"):""].filter(Boolean).join(" ");
-  });
+  function renderDur(){
+    document.querySelectorAll(".dur").forEach(el=>{
+      const [fy,fm]=el.dataset.from.split("-").map(Number);
+      const now=new Date();
+      const [ty,tm]=el.dataset.to?el.dataset.to.split("-").map(Number):[now.getFullYear(),now.getMonth()+1];
+      const m=(ty-fy)*12+(tm-fm)+1,y=Math.floor(m/12),r=m%12;
+      el.textContent=[y?pl(y,L("año","year"),L("años","years")):"",r?pl(r,L("mes","month"),L("meses","months")):""].filter(Boolean).join(" ");
+    });
+  }
 
   // contador total: 4 meses de 2021 + continuo desde 1 mar 2023 => equivale a empezar el 1 nov 2022
   const big=document.getElementById("up-big"),clock=document.getElementById("up-clock");
@@ -507,19 +519,19 @@ section[id]{scroll-margin-top:84px}
     let y=now.getFullYear()-2022,m=now.getMonth()-10,d=now.getDate()-1;
     if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}
     if(m<0){y--;m+=12}
-    big.innerHTML=`<b>${y}</b> ${y===1?"año":"años"} <b>${m}</b> ${m===1?"mes":"meses"} <b>${d}</b> ${d===1?"día":"días"}`;
+    big.innerHTML=`<b>${y}</b> ${y===1?L("año","year"):L("años","years")} <b>${m}</b> ${m===1?L("mes","month"):L("meses","months")} <b>${d}</b> ${d===1?L("día","day"):L("días","days")}`;
     clock.textContent=`${p2(now.getHours())}:${p2(now.getMinutes())}:${p2(now.getSeconds())}`;
   }
-  tick();setInterval(tick,1000);
+  setInterval(tick,1000);
 
   // titular que va cambiando
   const typed=document.getElementById("typed");
-  const words=["Ciberseguridad","Sistemas","Redes","Respuesta a incidentes"];
+  const words=()=>L(["Ciberseguridad","Sistemas","Redes","Respuesta a incidentes"],["Cybersecurity","Systems","Networking","Incident response"]);
   if(typed&&!reduce){
-    let wi=0,ci=words[0].length,del=true;
+    let wi=0,ci=words()[0].length,del=true;
     const loop=()=>{
-      if(del){ci--;if(ci<=0){ci=0;del=false;wi=(wi+1)%words.length}}else{ci++}
-      const cur=words[wi];
+      if(del){ci--;if(ci<=0){ci=0;del=false;wi=(wi+1)%words().length}}else{ci++}
+      const cur=words()[wi];
       typed.textContent=cur.slice(0,ci);
       let wait=del?45:90;
       if(!del&&ci>=cur.length){del=true;wait=2200}
@@ -538,27 +550,93 @@ section[id]{scroll-margin-top:84px}
     document.querySelectorAll("main section[id]").forEach(s=>io.observe(s));
   }
 
+  // textos en inglés (el español es el HTML original)
+  const EN=[
+    [".nav a",["value","experience","stack","education","terminal","contact"]],
+    [".switch button",["terminal","minimal","neon"]],
+    [".eyebrow",['<span class="dot"></span> Open to new challenges · Alicante, Spain']],
+    ["#role-a",["IT Operations"]],
+    [".intro",["I work as a DSO at Recursos en la red, monitoring infrastructure, analysing logs and resolving incidents in real time. I come from network and systems administration, and I moved into cybersecurity because I like understanding how things break so I can keep them from breaking."]],
+    [".ctas .btn.primary",["Get in touch"]],
+    [".uptime .lbl",['<span class="cmd">$ uptime · </span>Time working in IT']],
+    [".uptime .note",["Adding up all my roles since 2021 · updates live"]],
+    [".stat span",["companies in IT","first technical role","vocational degrees","languages"]],
+    ["#aporto h2",['<span class="cmd">$ man </span><span class="num">01</span>What I bring']],
+    [".serv .k",["Operations · NOC","Sysadmin","Security"]],
+    [".serv h3",["Monitoring and response","Systems and networks","Everyday security"]],
+    [".serv p",["I watch over the infrastructure, read logs and resolve incidents in real time. Everything is tracked and documented in Jira and Confluence.","Active Directory, SMB shares on Windows and Linux, Nextcloud, and switches configured and monitored.","Digital certificates always renewed, antispam and Protect under control, and specialised training in cybersecurity for IT environments."]],
+    ["#experiencia h2",['<span class="cmd">$ cat </span><span class="num">02</span>Experience<span class="ext">.log</span>']],
+    [".job .when",['Mar 2025 — present<span class="dur" data-from="2025-03"></span><span class="badge">current</span>','Jul 2023 — Mar 2025<span class="dur" data-from="2023-07" data-to="2025-03"></span>','Mar 2023 — Jun 2023<span class="dur" data-from="2023-03" data-to="2023-06"></span>','Mar 2021 — Jun 2021<span class="dur" data-from="2021-03" data-to="2021-06"></span>']],
+    [".job h3",["DSO · Support and Operations","Network Analyst · Infrastructure Admin","Systems and Cybersecurity Services","IT Technician"]],
+    [".job ul",[
+      "<li>Infrastructure monitoring and log analysis.</li><li>Real-time incident resolution and user support.</li><li>Daily work with Jira, Confluence, Protect and corporate antispam systems.</li><li>Improving operational processes alongside several technical teams.</li>",
+      "<li>Management, maintenance and optimisation of the IT infrastructure.</li><li>Managing and renewing digital certificates (remote work, websites, client/server).</li><li>Switch configuration and monitoring.</li><li>Administration of Active Directory, SMB (Windows and Linux) and Nextcloud.</li>",
+      "<li>First real hands-on experience with cybersecurity: protecting information and mitigating threats.</li><li>Work in secure and resilient digital environments.</li>",
+      "<li>Preventive and corrective maintenance of computers and systems.</li><li>Fast fault diagnosis and repair.</li>"]],
+    [".group h3",["Systems","Networking","Security","Tools"]],
+    [".tag",["Active Directory","Windows","Linux","SMB","Nextcloud","Office 365","Switching","Monitoring","SSL/TLS certificates","Remote access","Log analysis","Antispam","Protect","Incident management","Jira","Confluence","CMS"]],
+    ["#formacion h2",['<span class="cmd">$ cat </span><span class="num">04</span>Education<span class="ext">.txt</span>','<span class="cmd">$ locale </span><span class="num">05</span>Languages']],
+    [".edu h3",["Specialisation Course in Cybersecurity for IT Environments","Higher VET Diploma in Networked Computer Systems Administration","VET Diploma in Microcomputer Systems and Networks"]],
+    [".lang .row",["Spanish <span>native</span>","Valencian <span>native</span>","English <span>professional</span>","French <span>basic</span>"]],
+    [".lead",["Explore my profile the way a sysadmin would: type a command or tap one of the buttons. Tab autocompletes and the arrow keys bring back your history."]],
+    ["#contacto h2",['<span class="cmd">$ ping </span><span class="num">07</span>Let’s talk']],
+    [".contact p",["I’m looking to keep growing in cybersecurity and systems operations. If you have a role, a project, or just want to talk security, drop me a line."]],
+    ["#copy",["Copy email"]],
+    ["#foot",["in the IT world since 2019"]]
+  ];
+
   // terminal interactiva
   const out=document.getElementById("t-out"),inp=document.getElementById("t-in");
   const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   const C=s=>`<span class="c">${s}</span>`,Y=s=>`<span class="y">${s}</span>`,M=s=>`<span class="m">${s}</span>`;
   const A=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+  const LI="https://www.linkedin.com/in/javier-cano-155a52284/",GH="https://github.com/javi03ca";
   const cmds={
-    help:()=>"Comandos disponibles:\n"+[["whoami","quién soy"],["experiencia","dónde he trabajado"],["stack","con qué trabajo"],["formacion","qué he estudiado"],["idiomas","qué idiomas hablo"],["uptime","tiempo trabajando en IT"],["contacto","cómo escribirme"],["ls","ver archivos"],["estilo neon","cambia el estilo (terminal, minimal, neon)"],["clear","limpia la pantalla"]].map(([a,b])=>"  "+C(a.padEnd(13))+" "+M(b)).join("\n"),
-    whoami:()=>`${Y("Javier Cano")} · Operaciones IT y Ciberseguridad\nDSO en Recursos en la red · Alicante, España`,
-    experiencia:()=>[["mar 2025 – hoy","DSO · Soporte y Operaciones","Recursos en la red"],["jul 2023 – mar 2025","Analista de redes","ITAE INNOVA"],["mar 2023 – jun 2023","Sistemas y Ciberseguridad","Verne Technology Group"],["mar 2021 – jun 2021","Técnico informático","OfiMare"]].map(([a,b,c])=>M(a.padEnd(21))+b+" "+Y("@ "+c)).join("\n"),
-    stack:()=>[["sistemas","Active Directory, Windows, Linux, SMB, Nextcloud, Office 365"],["redes","switching, monitorización, certificados SSL/TLS"],["seguridad","análisis de logs, antispam, Protect, incidentes"],["herramientas","Jira, Confluence, CMS"]].map(([a,b])=>C((a+"/").padEnd(14))+b).join("\n"),
-    formacion:()=>[["2023–24","Especialización en Ciberseguridad en Entornos TI"],["2021–23","CFGS Administración de Sistemas Informáticos en Red"],["2019–21","CFGM Sistemas Microinformáticos y Redes"]].map(([a,b])=>M(a.padEnd(9))+b).join("\n")+"\n"+M("IES Mare Nostrum"),
-    idiomas:()=>"español  "+C("██████████")+" nativo\ncatalán  "+C("██████████")+" nativo\ninglés   "+C("███████")+M("░░░")+" profesional\nfrancés  "+C("███")+M("░░░░░░░")+" básico",
-    uptime:()=>`${C("up")} ${document.getElementById("up-big").textContent.trim()} trabajando en IT`,
-    contacto:()=>`email     ${Y("javi03ca@gmail.com")}\nlinkedin  ${A("https://www.linkedin.com/in/javier-cano-155a52284/","linkedin.com/in/javier-cano")}\ngithub    ${A("https://github.com/javi03ca","github.com/javi03ca")}`,
-    ls:()=>[C("experiencia.log"),C("stack/"),C("formacion.txt"),C("idiomas"),Y("contacto.sh")].join("  "),
-    date:()=>new Date().toLocaleString("es-ES"),
-    github:()=>"→ "+A("https://github.com/javi03ca","github.com/javi03ca"),
-    linkedin:()=>"→ "+A("https://www.linkedin.com/in/javier-cano-155a52284/","linkedin.com/in/javier-cano")
+    help:()=>L("Comandos disponibles:","Available commands:")+"\n"+[
+      ["whoami",L("quién soy","who I am")],
+      [L("experiencia","experience"),L("dónde he trabajado","where I’ve worked")],
+      ["stack",L("con qué trabajo","what I work with")],
+      [L("formacion","education"),L("qué he estudiado","what I’ve studied")],
+      [L("idiomas","languages"),L("qué idiomas hablo","languages I speak")],
+      ["uptime",L("tiempo trabajando en IT","time working in IT")],
+      [L("contacto","contact"),L("cómo escribirme","how to reach me")],
+      ["ls",L("ver archivos","list files")],
+      [L("estilo neon","style neon"),L("cambia el estilo (terminal, minimal, neon)","switch style (terminal, minimal, neon)")],
+      [L("idioma en","lang es"),L("switch to English","cambiar a español")],
+      ["clear",L("limpia la pantalla","clear the screen")]
+    ].map(([a,b])=>"  "+C(a.padEnd(13))+" "+M(b)).join("\n"),
+    whoami:()=>L(`${Y("Javier Cano")} · Operaciones IT y Ciberseguridad\nDSO en Recursos en la red · Alicante, España`,`${Y("Javier Cano")} · IT Operations & Cybersecurity\nDSO at Recursos en la red · Alicante, Spain`),
+    experiencia:()=>[
+      [L("mar 2025 – hoy","Mar 2025 – now"),L("DSO · Soporte y Operaciones","DSO · Support & Operations"),"Recursos en la red"],
+      [L("jul 2023 – mar 2025","Jul 2023 – Mar 2025"),L("Analista de redes","Network Analyst"),"ITAE INNOVA"],
+      [L("mar 2023 – jun 2023","Mar 2023 – Jun 2023"),L("Sistemas y Ciberseguridad","Systems & Cybersecurity"),"Verne Technology Group"],
+      [L("mar 2021 – jun 2021","Mar 2021 – Jun 2021"),L("Técnico informático","IT Technician"),"OfiMare"]
+    ].map(([a,b,c])=>M(a.padEnd(21))+b+" "+Y("@ "+c)).join("\n"),
+    stack:()=>[
+      [L("sistemas","systems"),"Active Directory, Windows, Linux, SMB, Nextcloud, Office 365"],
+      [L("redes","networking"),L("switching, monitorización, certificados SSL/TLS","switching, monitoring, SSL/TLS certificates")],
+      [L("seguridad","security"),L("análisis de logs, antispam, Protect, incidentes","log analysis, antispam, Protect, incidents")],
+      [L("herramientas","tools"),"Jira, Confluence, CMS"]
+    ].map(([a,b])=>C((a+"/").padEnd(14))+b).join("\n"),
+    formacion:()=>[
+      ["2023–24",L("Especialización en Ciberseguridad en Entornos TI","Specialisation in Cybersecurity for IT Environments")],
+      ["2021–23",L("CFGS Administración de Sistemas Informáticos en Red","Higher VET · Networked Systems Administration")],
+      ["2019–21",L("CFGM Sistemas Microinformáticos y Redes","VET · Microcomputer Systems and Networks")]
+    ].map(([a,b])=>M(a.padEnd(9))+b).join("\n")+"\n"+M("IES Mare Nostrum"),
+    idiomas:()=>[[L("español","spanish"),10,L("nativo","native")],[L("valenciano","valencian"),10,L("nativo","native")],[L("inglés","english"),7,L("profesional","professional")],[L("francés","french"),3,L("básico","basic")]].map(([n,k,t])=>n.padEnd(11)+C("█".repeat(k))+M("░".repeat(10-k))+" "+t).join("\n"),
+    uptime:()=>`${C("up")} ${big.textContent.trim()} ${L("trabajando en IT","working in IT")}`,
+    contacto:()=>`email     ${Y("javi03ca@gmail.com")}\nlinkedin  ${A(LI,"linkedin.com/in/javier-cano")}\ngithub    ${A(GH,"github.com/javi03ca")}`,
+    ls:()=>[C(L("experiencia.log","experience.log")),C("stack/"),C(L("formacion.txt","education.txt")),C(L("idiomas","languages")),Y(L("contacto.sh","contact.sh"))].join("  "),
+    date:()=>new Date().toLocaleString(L("es-ES","en-GB")),
+    github:()=>"→ "+A(GH,"github.com/javi03ca"),
+    linkedin:()=>"→ "+A(LI,"linkedin.com/in/javier-cano")
   };
-  const alias={"cat experiencia.log":"experiencia","cat formacion.txt":"formacion","ls stack":"stack","ls stack/":"stack","cat idiomas":"idiomas","./contacto.sh":"contacto","formación":"formacion","pwd":"__pwd","exit":"__exit","sudo contratar-javier":"__hire"};
+  const alias={"experience":"experiencia","contact":"contacto","education":"formacion","formación":"formacion","languages":"idiomas",
+    "cat experiencia.log":"experiencia","cat experience.log":"experiencia","cat formacion.txt":"formacion","cat education.txt":"formacion",
+    "ls stack":"stack","ls stack/":"stack","cat idiomas":"idiomas","cat languages":"idiomas","./contacto.sh":"contacto","./contact.sh":"contacto",
+    "pwd":"__pwd","exit":"__exit","sudo contratar-javier":"__hire","sudo hire-javier":"__hire"};
   const print=h=>{out.insertAdjacentHTML("beforeend",h+"\n");out.scrollTop=out.scrollHeight};
+  const welcome=()=>L(`Bienvenido a ${Y("jcano-os")} 1.0 · Escribe ${C("help")} para ver los comandos.`,`Welcome to ${Y("jcano-os")} 1.0 · Type ${C("help")} to see the commands.`);
   function run(raw){
     const line=raw.trim();
     print(`${C("javier@alicante")}:${Y("~")}$ ${esc(line)}`);
@@ -567,35 +645,62 @@ section[id]{scroll-margin-top:84px}
     const key=alias[low]||low;
     const [cmd,arg]=key.split(" ");
     if(cmd==="clear"){out.innerHTML="";return}
-    if(cmd==="estilo"){
+    if(cmd==="estilo"||cmd==="style"){
       const s=arg==="neón"?"neon":arg;
-      if(styles.includes(s)){apply(s);print(M("estilo cambiado a "+s))}else print("uso: estilo terminal | minimal | neon");
+      if(styles.includes(s)){apply(s);print(M(L("estilo cambiado a ","style switched to ")+s))}else print(L("uso: estilo terminal | minimal | neon","usage: style terminal | minimal | neon"));
       return;
     }
-    if(key==="__hire"){print("[sudo] contraseña para reclutador: ********\n"+C("✔ acceso concedido")+"\nSiguiente paso: escríbeme a "+Y("javi03ca@gmail.com"));return}
+    if(cmd==="idioma"||cmd==="lang"){
+      if(arg==="es"||arg==="en"){setLang(arg)}else print(L("uso: idioma es | en","usage: lang es | en"));
+      return;
+    }
+    if(key==="__hire"){print(L("[sudo] contraseña para reclutador: ********","[sudo] password for recruiter: ********")+"\n"+C(L("✔ acceso concedido","✔ access granted"))+"\n"+L("Siguiente paso: escríbeme a ","Next step: email me at ")+Y("javi03ca@gmail.com"));return}
     if(key==="__pwd"){print("/home/javier");return}
-    if(key==="__exit"){print("¿Ya te vas? Antes prueba "+C("contacto"));return}
-    if(low.startsWith("rm ")){print(Y("Permiso denegado.")+" Aquí el que protege los sistemas soy yo.");return}
-    if(low.startsWith("sudo")){print("Casi. Prueba con "+C("sudo contratar-javier"));return}
+    if(key==="__exit"){print(L("¿Ya te vas? Antes prueba ","Leaving already? Try ")+C(L("contacto","contact")));return}
+    if(low.startsWith("rm ")){print(Y(L("Permiso denegado.","Permission denied."))+L(" Aquí el que protege los sistemas soy yo."," Protecting systems is my job."));return}
+    if(low.startsWith("sudo")){print(L("Casi. Prueba con ","Close. Try ")+C(L("sudo contratar-javier","sudo hire-javier")));return}
     if(cmds[cmd]&&!arg){print(cmds[cmd]());return}
-    print(`comando no encontrado: ${esc(line)} · escribe ${C("help")}`);
+    print(`${L("comando no encontrado","command not found")}: ${esc(line)} · ${L("escribe","type")} ${C("help")}`);
   }
   const hist=[];let hi=0;
-  const names=[...Object.keys(cmds),"clear","estilo ","sudo contratar-javier"];
+  const names=()=>[...Object.keys(cmds),...Object.keys(alias).filter(k=>!k.includes(" ")&&!k.startsWith(".")),"clear",L("estilo ","style "),L("idioma ","lang "),L("sudo contratar-javier","sudo hire-javier")];
   inp.addEventListener("keydown",e=>{
     if(e.key==="Enter"){const v=inp.value;if(v.trim())hist.push(v);hi=hist.length;run(v);inp.value=""}
     else if(e.key==="ArrowUp"){if(hi>0){hi--;inp.value=hist[hi]}e.preventDefault()}
     else if(e.key==="ArrowDown"){if(hi<hist.length-1){hi++;inp.value=hist[hi]}else{hi=hist.length;inp.value=""}e.preventDefault()}
     else if(e.key==="Tab"&&inp.value){
-      const m=names.filter(n=>n.startsWith(inp.value.toLowerCase()));
+      const m=[...new Set(names())].filter(n=>n.startsWith(inp.value.toLowerCase()));
       e.preventDefault();
       if(m.length===1)inp.value=m[0];else if(m.length>1)print(M(m.join("  ")));
     }
   });
   out.addEventListener("click",()=>{if(!String(getSelection()))inp.focus({preventScroll:true})});
-  document.querySelectorAll(".chips button").forEach(b=>b.addEventListener("click",()=>run(b.dataset.cmd)));
-  run("help");
+  const chips=[...document.querySelectorAll(".chips button")];
+  const CH={es:["whoami","experiencia","stack","uptime","contacto","sudo contratar-javier"],en:["whoami","experience","stack","uptime","contact","sudo hire-javier"]};
+  chips.forEach(b=>b.addEventListener("click",()=>run(b.dataset.cmd)));
 
+  // cambio de idioma
+  const langBtn=document.getElementById("lang");
+  function setLang(l){
+    lang=l;
+    root.lang=l;
+    EN.forEach(([sel,arr])=>document.querySelectorAll(sel).forEach((el,i)=>{
+      if(arr[i]==null)return;
+      if(el.dataset.es===undefined)el.dataset.es=el.innerHTML;
+      el.innerHTML=l==="en"?arr[i]:el.dataset.es;
+    }));
+    chips.forEach((b,i)=>{b.textContent=CH[l][i];b.dataset.cmd=CH[l][i]});
+    inp.placeholder=L("escribe un comando…","type a command…");
+    langBtn.textContent=L("EN","ES");
+    langBtn.setAttribute("aria-label",L("Ver en inglés","View in Spanish"));
+    renderDur();tick();
+    out.innerHTML=welcome()+"\n";
+    run("help");
+    try{localStorage.setItem("pf-lang",l)}catch(e){}
+  }
+  langBtn.addEventListener("click",()=>setLang(lang==="en"?"es":"en"));
+
+  setLang(lang);
   apply(start);
 })();
 </script>
