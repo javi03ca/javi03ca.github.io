@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Portfolio de Javier Cano, Operaciones IT y Ciberseguridad en Alicante.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Javier Cano · Operaciones IT y Ciberseguridad">
+<meta property="og:description" content="Experiencia, stack y una terminal interactiva para conocer mi perfil.">
+<meta property="og:url" content="https://javi03ca.github.io/">
+<meta name="theme-color" content="#0a0f0b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a0f0b%27/%3E%3Ctext x=%2710%27 y=%2744%27 font-family=%27monospace%27 font-size=%2730%27 font-weight=%27700%27 fill=%27%2339ff88%27%3E%3E_%3C/text%3E%3C/svg%3E">
+<title>Javier Cano · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Unbounded:wght@500;700;800&family=Sora:wght@400;500;600&display=swap">
+<style>
+
+:root{
+  --bg:#0a0f0b; --surface:#0f1712; --fg:#c8f5d2; --muted:#6f9a7a; --accent:#39ff88; --accent-2:#ffb547; --line:#1f3326;
+  --display:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --body:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --radius:2px;
+  color-scheme:dark;
+}
+:root[data-style="minimal"]{
+  --bg:#f6f6f3; --surface:#ffffff; --fg:#1b1e24; --muted:#6b7079; --accent:#1f4fd6; --accent-2:#1f4fd6; --line:#dfe0dc;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --radius:6px;
+  color-scheme:light;
+}
+:root[data-style="neon"]{
+  --bg:#07061a; --surface:rgba(255,255,255,.045); --fg:#ecebff; --muted:#9a97c7; --accent:#7cf3ff; --accent-2:#ff5fd2; --line:rgba(160,150,255,.18);
+  --display:"Unbounded","Sora",system-ui,sans-serif;
+  --body:"Sora",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --radius:18px;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;
+  transition:background .4s ease,color .4s ease;overflow-x:hidden}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));position:relative;z-index:1}
+
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px;flex-wrap:wrap}
+.logo{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--fg);text-decoration:none;letter-spacing:.02em}
+.logo b{color:var(--accent)}
+.switch{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:calc(var(--radius) + 4px);background:var(--surface)}
+.switch button{font:500 13px/1 var(--mono);color:var(--muted);background:transparent;border:0;padding:8px 12px;border-radius:var(--radius);cursor:pointer;transition:all .2s}
+.switch button:hover{color:var(--fg)}
+.switch button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+:root[data-style="minimal"] .switch button[aria-pressed="true"]{color:#fff}
+
+
+.hero{padding-block:72px 56px}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent)}70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,9vw,96px);line-height:1;margin:18px 0 14px;letter-spacing:-.02em;text-wrap:balance}
+.role{font-family:var(--display);font-size:clamp(19px,2.6vw,26px);color:var(--fg);margin:0 0 18px;text-wrap:balance}
+.role em{font-style:normal;color:var(--accent)}
+.intro{max-width:62ch;color:var(--muted);margin:0 0 28px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font:600 14px/1 var(--mono);padding:14px 20px;border-radius:var(--radius);text-decoration:none;border:1px solid var(--accent);cursor:pointer;transition:transform .15s,background .2s,color .2s}
+.btn.primary{background:var(--accent);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:hover{transform:translateY(-2px)}
+:root[data-style="minimal"] .btn.primary{color:#fff}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:44px}
+.stat{border:1px solid var(--line);border-radius:var(--radius);padding:16px;background:var(--surface)}
+.stat b{display:block;font-family:var(--display);font-size:28px;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.uptime{margin-top:40px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;padding:20px 22px;border:1px solid var(--accent);border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 7%,var(--surface))}
+.uptime .lbl{width:100%;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.uptime .big{font-family:var(--display);font-size:clamp(24px,5vw,42px);font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;text-wrap:balance}
+.uptime .big b{color:var(--accent)}
+.uptime .clock{font-family:var(--mono);font-size:15px;color:var(--accent-2);font-variant-numeric:tabular-nums}
+.uptime .note{width:100%;font-size:13px;color:var(--muted)}
+.dur{display:block;margin-top:4px;color:var(--accent);font-size:12px}
+:root[data-style="minimal"] .uptime{background:transparent;border-width:0 0 0 2px;border-radius:0;padding-block:6px}
+:root[data-style="minimal"] .uptime .big{font-weight:500}
+:root[data-style="neon"] .uptime{border-color:transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(100deg,var(--accent),var(--accent-2)) border-box;box-shadow:0 20px 50px -25px var(--accent-2)}
+:root[data-style="neon"] .uptime .big b{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+
+section{padding-block:48px;border-top:1px solid var(--line)}
+h2{font-family:var(--display);font-size:clamp(26px,4vw,38px);margin:0 0 28px;font-weight:700;letter-spacing:-.01em}
+.cmd,.ext{display:none}
+.num{font-family:var(--mono);font-size:14px;color:var(--accent);margin-right:10px;vertical-align:middle}
+
+
+.timeline{display:grid;gap:14px}
+.job{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);transition:transform .25s,border-color .25s}
+.job:hover{border-color:var(--accent)}
+.job .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.job .when .badge{display:inline-block;margin-top:6px;font-size:11px;padding:3px 8px;border-radius:99px;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+.job h3{margin:0;font-family:var(--display);font-size:20px;line-height:1.25}
+.job .co{color:var(--accent-2);font-weight:500;margin:2px 0 10px;font-size:15px}
+.job ul{margin:0;padding-left:18px;color:var(--muted);min-width:0}
+.job li{margin:3px 0}
+.job li::marker{color:var(--accent)}
+
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.group{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--surface)}
+.group h3{margin:0 0 12px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:var(--mono);font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:var(--radius);color:var(--fg);transition:all .2s}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+
+
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:28px}
+.two > *{min-width:0}
+.edu{display:grid;gap:14px}
+.edu article{border-left:2px solid var(--accent);padding:2px 0 2px 16px}
+.edu h3{margin:0;font-size:17px;font-family:var(--display)}
+.edu p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.edu .yrs{font-family:var(--mono);font-size:12px;color:var(--accent-2)}
+.langs{display:grid;gap:14px}
+.lang .row{display:flex;justify-content:space-between;font-size:15px;gap:10px}
+.lang .row span{color:var(--muted);font-size:13px;font-family:var(--mono)}
+.meter{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:inherit}
+
+
+.contact{text-align:left}
+.contact p{color:var(--muted);max-width:56ch;margin:0 0 24px}
+.mail{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.mail code{font-family:var(--mono);font-size:clamp(16px,3vw,22px);color:var(--fg);padding:12px 16px;border:1px dashed var(--accent);border-radius:var(--radius);user-select:all;word-break:break-all}
+footer{padding-block:36px;color:var(--muted);font-size:13px;font-family:var(--mono);border-top:1px solid var(--line)}
+
+
+:root[data-style="terminal"] body{background:
+  radial-gradient(ellipse at 50% 0%,#11261a 0%,transparent 60%),var(--bg)}
+:root[data-style="terminal"] body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+:root[data-style="terminal"] .cmd{display:inline;color:var(--muted);font-weight:400}
+:root[data-style="terminal"] .ext{display:inline;color:var(--muted);font-weight:400}
+:root[data-style="terminal"] .num{display:none}
+:root[data-style="terminal"] h2{font-size:clamp(20px,3vw,26px)}
+:root[data-style="terminal"] h1{text-shadow:0 0 18px color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent);font-size:clamp(40px,8vw,84px)}
+:root[data-style="terminal"] h1::after{content:"█";animation:blink 1s steps(1) infinite;margin-left:6px;font-size:.7em;vertical-align:.05em}
+@keyframes blink{50%{opacity:0}}
+:root[data-style="terminal"] .role::before{content:"> ";color:var(--accent)}
+:root[data-style="terminal"] .job .co::before{content:"@ "}
+:root[data-style="terminal"] .tag::before{content:"./";color:var(--muted)}
+:root[data-style="terminal"] .hero .prompt{display:block}
+.prompt{display:none;font-family:var(--mono);font-size:14px;color:var(--muted);margin-bottom:6px}
+.prompt b{color:var(--accent)} .prompt i{color:var(--accent-2);font-style:normal}
+
+
+:root[data-style="minimal"] h1{font-weight:500;letter-spacing:-.03em}
+:root[data-style="minimal"] h1 .last{font-style:italic;color:var(--accent)}
+:root[data-style="minimal"] h2{font-weight:500}
+:root[data-style="minimal"] .job,:root[data-style="minimal"] .group,:root[data-style="minimal"] .stat{background:transparent;border-width:0 0 1px 0;border-radius:0;padding-inline:0}
+:root[data-style="minimal"] .timeline{gap:0}
+:root[data-style="minimal"] .job h3,:root[data-style="minimal"] .edu h3{font-weight:500;font-size:22px}
+:root[data-style="minimal"] .stat b{font-weight:500;font-size:34px}
+:root[data-style="minimal"] .dot{animation:none}
+:root[data-style="minimal"] .bar{background:color-mix(in srgb,var(--bg) 92%,transparent)}
+
+
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:none}
+:root[data-style="neon"] #net{display:block}
+:root[data-style="neon"] body{background:
+  radial-gradient(circle at 15% 10%,rgba(124,243,255,.16),transparent 40%),
+  radial-gradient(circle at 85% 30%,rgba(255,95,210,.16),transparent 45%),
+  radial-gradient(circle at 50% 100%,rgba(110,80,255,.22),transparent 50%),var(--bg);background-attachment:fixed}
+:root[data-style="neon"] h1{background:linear-gradient(100deg,var(--accent),#a99bff 45%,var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% auto;animation:shine 6s linear infinite;font-weight:800}
+@keyframes shine{to{background-position:200% center}}
+:root[data-style="neon"] .job,:root[data-style="neon"] .group,:root[data-style="neon"] .stat,:root[data-style="neon"] .switch{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+:root[data-style="neon"] .job:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px var(--accent-2)}
+:root[data-style="neon"] .btn.primary{background:linear-gradient(100deg,var(--accent),var(--accent-2));border-color:transparent;box-shadow:0 10px 30px -10px var(--accent-2)}
+:root[data-style="neon"] .switch button[aria-pressed="true"]{background:linear-gradient(100deg,var(--accent),var(--accent-2))}
+:root[data-style="neon"] .group h3,:root[data-style="neon"] h2,:root[data-style="neon"] .job h3{font-weight:700}
+:root[data-style="neon"] h2{font-size:clamp(24px,3.6vw,34px)}
+:root[data-style="neon"] .stat b{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+:root[data-style="neon"] .reveal{animation:rise .8s both}
+@keyframes rise{from{transform:translateY(18px)}to{transform:none}}
+
+
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:84px}
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:60;pointer-events:none}
+.nav{display:flex;gap:2px;flex-wrap:wrap}
+.nav a{font:500 13px/1 var(--mono);color:var(--muted);text-decoration:none;padding:9px 10px;border-radius:var(--radius);transition:color .2s,background .2s}
+.nav a:hover{color:var(--fg)}
+.nav a.on{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+#typed::after{content:"";display:inline-block;width:2px;height:.95em;background:var(--accent);margin-left:3px;vertical-align:-.1em;animation:blink 1s steps(1) infinite}
+.lead{color:var(--muted);max-width:60ch;margin:-14px 0 24px}
+
+.serv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.serv article{display:flex;flex-direction:column;gap:10px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);transition:border-color .25s,transform .25s,box-shadow .25s}
+.serv article:hover{border-color:var(--accent)}
+.serv .k{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2)}
+.serv h3{margin:0;font-family:var(--display);font-size:20px;line-height:1.25}
+.serv p{margin:0;color:var(--muted);font-size:15px}
+:root[data-style="minimal"] .serv article{background:transparent;border-width:1px 0 0 0;border-radius:0;padding-inline:0}
+:root[data-style="minimal"] .serv h3{font-weight:500;font-size:22px}
+:root[data-style="neon"] .serv article{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+:root[data-style="neon"] .serv article:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px var(--accent)}
+
+
+.term{border:1px solid #1f3326;border-radius:max(var(--radius),8px);overflow:hidden;background:#0b100d;color:#c8f5d2;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.term-top{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#121a15;border-bottom:1px solid #1f3326;color:#6f9a7a;font-size:12px}
+.term-top i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+.term-top i:nth-child(2){background:#febc2e}
+.term-top i:nth-child(3){background:#28c840}
+.term-top span{margin-left:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.term-out{height:330px;overflow-y:auto;padding:14px 16px;white-space:pre-wrap;word-break:break-word;line-height:1.55;cursor:text}
+.term-out .c{color:#39ff88}
+.term-out .y{color:#ffb547}
+.term-out .m{color:#6f9a7a}
+.term-out a{color:#7cf3ff}
+.term-in{display:flex;align-items:center;gap:8px;padding:10px 16px 14px;border-top:1px solid #1f3326}
+.term-in:focus-within{background:#0e1611}
+.term-in label{color:#39ff88;white-space:nowrap}
+.term-in input{flex:1;min-width:0;background:transparent;border:0;color:#c8f5d2;font:inherit;outline:none;caret-color:#39ff88}
+.term-in input::placeholder{color:#4d6b55}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips button{font:500 13px/1 var(--mono);padding:9px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--fg);cursor:pointer;transition:all .2s}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+
+@media (max-width:860px){.nav{display:none}}
+@media (max-width:480px){.term-in label{font-size:12px}.term-out{height:300px;font-size:13px}}
+
+
+@media (max-width:700px){
+  .job{grid-template-columns:1fr;gap:6px}
+  .two{grid-template-columns:1fr}
+  .hero{padding-block:44px 36px}
+  .switch button{padding:8px 9px;font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<canvas id="net" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#top">jcano<b>@</b>sec:~</a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#aporto">aporto</a><a href="#experiencia">experiencia</a><a href="#stack">stack</a><a href="#formacion">formación</a><a href="#terminal">terminal</a><a href="#contacto">contacto</a>
+    </nav>
+    <div class="switch" role="group" aria-label="Estilo del portfolio">
+      <button type="button" id="s-terminal" data-s="terminal">terminal</button>
+      <button type="button" id="s-minimal" data-s="minimal">minimal</button>
+      <button type="button" id="s-neon" data-s="neon">neón</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero" style="border-top:0">
+      <span class="prompt"><b>javier@alicante</b>:<i>~</i>$ whoami</span>
+      <div class="eyebrow"><span class="dot"></span> Disponible para nuevos retos · Alicante, España</div>
+      <h1>Javier <span class="last">Cano</span></h1>
+      <p class="role">Operaciones IT &amp; <em id="typed">Ciberseguridad</em></p>
+      <p class="intro">Trabajo como DSO en Recursos en la red, supervisando infraestructuras, analizando logs y resolviendo incidencias en tiempo real. Vengo de administrar redes y sistemas, y me especialicé en ciberseguridad porque me gusta entender cómo se rompen las cosas para que no se rompan.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#contacto">Contactar</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/javier-cano-155a52284/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn ghost" href="https://github.com/javi03ca" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <div class="uptime reveal">
+        <span class="lbl"><span class="cmd">$ uptime · </span>Tiempo trabajando en IT</span>
+        <span class="big" id="up-big"><b>3</b> años <b>11</b> meses <b>15</b> días</span>
+        <span class="clock" id="up-clock" aria-hidden="true">00:00:00</span>
+        <span class="note">Sumando todos mis puestos desde 2021 · se actualiza en directo</span>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><b>4</b><span>empresas en IT</span></div>
+        <div class="stat"><b>2021</b><span>primer puesto técnico</span></div>
+        <div class="stat"><b>3</b><span>titulaciones FP</span></div>
+        <div class="stat"><b>4</b><span>idiomas</span></div>
+      </div>
+    </section>
+
+    <section id="aporto">
+      <h2><span class="cmd">$ man </span><span class="num">01</span>Qué aporto</h2>
+      <div class="serv">
+        <article class="reveal">
+          <span class="k">Operaciones · NOC</span>
+          <h3>Monitorización y respuesta</h3>
+          <p>Vigilo la infraestructura, leo logs y resuelvo incidencias en tiempo real. Todo queda registrado y documentado en Jira y Confluence.</p>
+        </article>
+        <article class="reveal">
+          <span class="k">Sysadmin</span>
+          <h3>Sistemas y redes</h3>
+          <p>Active Directory, recursos compartidos SMB en Windows y Linux, Nextcloud y switches configurados y monitorizados.</p>
+        </article>
+        <article class="reveal">
+          <span class="k">Seguridad</span>
+          <h3>Seguridad del día a día</h3>
+          <p>Certificados digitales siempre renovados, antispam y Protect bajo control, y formación específica en ciberseguridad en entornos TI.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="experiencia">
+      <h2><span class="cmd">$ cat </span><span class="num">02</span>Experiencia<span class="ext">.log</span></h2>
+      <div class="timeline">
+        <article class="job reveal">
+          <div class="when">mar 2025 — hoy<span class="dur" data-from="2025-03">1 año 8 meses</span><span class="badge">actual</span></div>
+          <div>
+            <h3>DSO · Soporte y Operaciones</h3>
+            <p class="co">Recursos en la red</p>
+            <ul>
+              <li>Supervisión de infraestructura y análisis de logs.</li>
+              <li>Resolución de incidencias y soporte a usuarios en tiempo real.</li>
+              <li>Jira, Confluence, Protect y sistemas antispam corporativos a diario.</li>
+              <li>Mejora de procesos operativos junto a varios equipos técnicos.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job reveal">
+          <div class="when">jul 2023 — mar 2025<span class="dur" data-from="2023-07" data-to="2025-03">1 año 9 meses</span></div>
+          <div>
+            <h3>Analista de redes · Admin. de infraestructura</h3>
+            <p class="co">ITAE INNOVA</p>
+            <ul>
+              <li>Gestión, mantenimiento y optimización de la infraestructura IT.</li>
+              <li>Gestión y renovación de certificados digitales (teletrabajo, webs, cliente/servidor).</li>
+              <li>Configuración y monitorización de switches.</li>
+              <li>Administración de Active Directory, SMB (Windows y Linux) y Nextcloud.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job reveal">
+          <div class="when">mar 2023 — jun 2023<span class="dur" data-from="2023-03" data-to="2023-06">4 meses</span></div>
+          <div>
+            <h3>Servicio de Sistemas y Ciberseguridad</h3>
+            <p class="co">Verne Technology Group</p>
+            <ul>
+              <li>Primer contacto real con la ciberseguridad: protección de la información y mitigación de amenazas.</li>
+              <li>Trabajo en entornos digitales seguros y resilientes.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="job reveal">
+          <div class="when">mar 2021 — jun 2021<span class="dur" data-from="2021-03" data-to="2021-06">4 meses</span></div>
+          <div>
+            <h3>Técnico informático</h3>
+            <p class="co">OfiMare · Ofimática Mare Nostrum</p>
+            <ul>
+              <li>Mantenimiento preventivo y correctivo de equipos y sistemas.</li>
+              <li>Diagnóstico y solución rápida de averías.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="stack">
+      <h2><span class="cmd">$ ls </span><span class="num">03</span>Stack<span class="ext"> --all</span></h2>
+      <div class="skills">
+        <div class="group reveal"><h3>Sistemas</h3><div class="tags">
+          <span class="tag">Active Directory</span><span class="tag">Windows</span><span class="tag">Linux</span><span class="tag">SMB</span><span class="tag">Nextcloud</span><span class="tag">Office 365</span>
+        </div></div>
+        <div class="group reveal"><h3>Redes</h3><div class="tags">
+          <span class="tag">Switching</span><span class="tag">Monitorización</span><span class="tag">Certificados SSL/TLS</span><span class="tag">Accesos de teletrabajo</span>
+        </div></div>
+        <div class="group reveal"><h3>Seguridad</h3><div class="tags">
+          <span class="tag">Análisis de logs</span><span class="tag">Antispam</span><span class="tag">Protect</span><span class="tag">Gestión de incidentes</span>
+        </div></div>
+        <div class="group reveal"><h3>Herramientas</h3><div class="tags">
+          <span class="tag">Jira</span><span class="tag">Confluence</span><span class="tag">CMS</span>
+        </div></div>
+      </div>
+    </section>
+
+    <section id="formacion">
+      <div class="two">
+        <div>
+          <h2><span class="cmd">$ cat </span><span class="num">04</span>Formación<span class="ext">.txt</span></h2>
+          <div class="edu">
+            <article><span class="yrs">2023 — 2024</span><h3>Curso de Especialización en Ciberseguridad en Entornos TI</h3><p>IES Mare Nostrum</p></article>
+            <article><span class="yrs">2021 — 2023</span><h3>CFGS Administración de Sistemas Informáticos en Red</h3><p>IES Mare Nostrum</p></article>
+            <article><span class="yrs">2019 — 2021</span><h3>CFGM Sistemas Microinformáticos y Redes</h3><p>IES Mare Nostrum</p></article>
+          </div>
+        </div>
+        <div>
+          <h2><span class="cmd">$ locale </span><span class="num">05</span>Idiomas</h2>
+          <div class="langs">
+            <div class="lang"><div class="row">Español <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
+            <div class="lang"><div class="row">Catalán <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
+            <div class="lang"><div class="row">Inglés <span>profesional</span></div><div class="meter"><i style="width:72%"></i></div></div>
+            <div class="lang"><div class="row">Francés <span>básico</span></div><div class="meter"><i style="width:30%"></i></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="terminal">
+      <h2><span class="cmd">$ ssh </span><span class="num">06</span>Terminal</h2>
+      <p class="lead">Conoce mi perfil como lo haría un sysadmin: escribe un comando o pulsa uno de los botones. El tabulador autocompleta y las flechas recuperan el historial.</p>
+      <div class="term">
+        <div class="term-top"><i></i><i></i><i></i><span>javier@alicante: ~ — bash</span></div>
+        <div class="term-out" id="t-out" role="log" aria-live="polite">Bienvenido a <span class="y">jcano-os</span> 1.0 · Escribe <span class="c">help</span> para ver los comandos.
+</div>
+        <div class="term-in"><label for="t-in">javier@alicante:~$</label><input id="t-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="escribe un comando…"></div>
+      </div>
+      <div class="chips">
+        <button type="button" data-cmd="whoami">whoami</button>
+        <button type="button" data-cmd="experiencia">experiencia</button>
+        <button type="button" data-cmd="stack">stack</button>
+        <button type="button" data-cmd="uptime">uptime</button>
+        <button type="button" data-cmd="contacto">contacto</button>
+        <button type="button" data-cmd="sudo contratar-javier">sudo contratar-javier</button>
+      </div>
+    </section>
+
+    <section id="contacto" class="contact">
+      <h2><span class="cmd">$ ping </span><span class="num">07</span>Hablemos</h2>
+      <p>Busco seguir creciendo en ciberseguridad y operaciones de sistemas. Si tienes un puesto, un proyecto o simplemente quieres hablar de seguridad, escríbeme.</p>
+      <div class="mail">
+        <code id="email">javi03ca@gmail.com</code>
+        <button class="btn primary" type="button" id="copy">Copiar email</button>
+        <a class="btn ghost" href="https://www.linkedin.com/in/javier-cano-155a52284/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn ghost" href="https://github.com/javi03ca" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap">© 2026 Javier Cano · Alicante · <span id="foot">en el mundo IT desde 2019</span></div></footer>
+
+<script>
+(function(){
+  const root=document.documentElement;
+  const styles=["terminal","minimal","neon"];
+  function apply(s){
+    if(!styles.includes(s)) s="terminal";
+    root.setAttribute("data-style",s);
+    document.querySelectorAll(".switch button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.s===s));
+    try{localStorage.setItem("pf-style",s)}catch(e){}
+    if(s==="neon") startNet(); else stopNet();
+  }
+  let start=location.hash.replace("#","");
+  if(!styles.includes(start)){ try{start=localStorage.getItem("pf-style")||"terminal"}catch(e){start="terminal"} }
+  document.querySelectorAll(".switch button").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.s)));
+
+  // copy email
+  const copy=document.getElementById("copy");
+  copy.addEventListener("click",()=>{
+    const t=document.getElementById("email").textContent;
+    const done=()=>{copy.textContent="¡Copiado!";setTimeout(()=>copy.textContent="Copiar email",1600)};
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("email"));const s=getSelection();s.removeAllRanges();s.addRange(r);copy.textContent="Selecciónalo y copia"};
+    try{navigator.clipboard.writeText(t).then(done,fallback)}catch(e){fallback()}
+  });
+
+  // neon: network of nodes (like a LAN map)
+  const cv=document.getElementById("net"),ctx=cv.getContext("2d");
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let nodes=[],raf=null,W=0,H=0,mouse={x:-999,y:-999};
+  function resize(){const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
+    const n=Math.round(Math.min(70,W*H/16000));nodes=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35}))}
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of nodes){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
+    for(let i=0;i<nodes.length;i++){const a=nodes[i];
+      for(let j=i+1;j<nodes.length;j++){const b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<140){ctx.strokeStyle=`rgba(124,243,255,${(1-d/140)*.28})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+      const md=Math.hypot(a.x-mouse.x,a.y-mouse.y);
+      if(md<180){ctx.strokeStyle=`rgba(255,95,210,${(1-md/180)*.5})`;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}
+      ctx.fillStyle="rgba(200,240,255,.75)";ctx.beginPath();ctx.arc(a.x,a.y,1.8,0,Math.PI*2);ctx.fill()}
+    if(!reduce) raf=requestAnimationFrame(frame);
+  }
+  function startNet(){if(raf)return;resize();frame()}
+  function stopNet(){if(raf){cancelAnimationFrame(raf);raf=null}ctx.clearRect(0,0,W,H)}
+  addEventListener("resize",()=>{if(root.dataset.style==="neon"){resize();if(reduce)frame()}});
+  addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+
+  // duración de cada puesto (meses inclusivos, como cuenta LinkedIn)
+  const pl=(n,s,p)=>n+" "+(n===1?s:p);
+  document.querySelectorAll(".dur").forEach(el=>{
+    const [fy,fm]=el.dataset.from.split("-").map(Number);
+    const now=new Date();
+    const [ty,tm]=el.dataset.to?el.dataset.to.split("-").map(Number):[now.getFullYear(),now.getMonth()+1];
+    const m=(ty-fy)*12+(tm-fm)+1,y=Math.floor(m/12),r=m%12;
+    el.textContent=[y?pl(y,"año","años"):"",r?pl(r,"mes","meses"):""].filter(Boolean).join(" ");
+  });
+
+  // contador total: 4 meses de 2021 + continuo desde 1 mar 2023 => equivale a empezar el 1 nov 2022
+  const big=document.getElementById("up-big"),clock=document.getElementById("up-clock");
+  const p2=n=>String(n).padStart(2,"0");
+  function tick(){
+    const now=new Date();
+    let y=now.getFullYear()-2022,m=now.getMonth()-10,d=now.getDate()-1;
+    if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}
+    if(m<0){y--;m+=12}
+    big.innerHTML=`<b>${y}</b> ${y===1?"año":"años"} <b>${m}</b> ${m===1?"mes":"meses"} <b>${d}</b> ${d===1?"día":"días"}`;
+    clock.textContent=`${p2(now.getHours())}:${p2(now.getMinutes())}:${p2(now.getSeconds())}`;
+  }
+  tick();setInterval(tick,1000);
+
+  // titular que va cambiando
+  const typed=document.getElementById("typed");
+  const words=["Ciberseguridad","Sistemas","Redes","Respuesta a incidentes"];
+  if(typed&&!reduce){
+    let wi=0,ci=words[0].length,del=true;
+    const loop=()=>{
+      if(del){ci--;if(ci<=0){ci=0;del=false;wi=(wi+1)%words.length}}else{ci++}
+      const cur=words[wi];
+      typed.textContent=cur.slice(0,ci);
+      let wait=del?45:90;
+      if(!del&&ci>=cur.length){del=true;wait=2200}
+      setTimeout(loop,wait);
+    };
+    setTimeout(loop,2200);
+  }
+
+  // barra de progreso y sección activa en el menú
+  const bar=document.getElementById("progress");
+  const prog=()=>{const h=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`};
+  addEventListener("scroll",prog,{passive:true});prog();
+  const links=[...document.querySelectorAll(".nav a")];
+  if("IntersectionObserver" in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle("on",l.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
+    document.querySelectorAll("main section[id]").forEach(s=>io.observe(s));
+  }
+
+  // terminal interactiva
+  const out=document.getElementById("t-out"),inp=document.getElementById("t-in");
+  const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const C=s=>`<span class="c">${s}</span>`,Y=s=>`<span class="y">${s}</span>`,M=s=>`<span class="m">${s}</span>`;
+  const A=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+  const cmds={
+    help:()=>"Comandos disponibles:\n"+[["whoami","quién soy"],["experiencia","dónde he trabajado"],["stack","con qué trabajo"],["formacion","qué he estudiado"],["idiomas","qué idiomas hablo"],["uptime","tiempo trabajando en IT"],["contacto","cómo escribirme"],["ls","ver archivos"],["estilo neon","cambia el estilo (terminal, minimal, neon)"],["clear","limpia la pantalla"]].map(([a,b])=>"  "+C(a.padEnd(13))+" "+M(b)).join("\n"),
+    whoami:()=>`${Y("Javier Cano")} · Operaciones IT y Ciberseguridad\nDSO en Recursos en la red · Alicante, España`,
+    experiencia:()=>[["mar 2025 – hoy","DSO · Soporte y Operaciones","Recursos en la red"],["jul 2023 – mar 2025","Analista de redes","ITAE INNOVA"],["mar 2023 – jun 2023","Sistemas y Ciberseguridad","Verne Technology Group"],["mar 2021 – jun 2021","Técnico informático","OfiMare"]].map(([a,b,c])=>M(a.padEnd(21))+b+" "+Y("@ "+c)).join("\n"),
+    stack:()=>[["sistemas","Active Directory, Windows, Linux, SMB, Nextcloud, Office 365"],["redes","switching, monitorización, certificados SSL/TLS"],["seguridad","análisis de logs, antispam, Protect, incidentes"],["herramientas","Jira, Confluence, CMS"]].map(([a,b])=>C((a+"/").padEnd(14))+b).join("\n"),
+    formacion:()=>[["2023–24","Especialización en Ciberseguridad en Entornos TI"],["2021–23","CFGS Administración de Sistemas Informáticos en Red"],["2019–21","CFGM Sistemas Microinformáticos y Redes"]].map(([a,b])=>M(a.padEnd(9))+b).join("\n")+"\n"+M("IES Mare Nostrum"),
+    idiomas:()=>"español  "+C("██████████")+" nativo\ncatalán  "+C("██████████")+" nativo\ninglés   "+C("███████")+M("░░░")+" profesional\nfrancés  "+C("███")+M("░░░░░░░")+" básico",
+    uptime:()=>`${C("up")} ${document.getElementById("up-big").textContent.trim()} trabajando en IT`,
+    contacto:()=>`email     ${Y("javi03ca@gmail.com")}\nlinkedin  ${A("https://www.linkedin.com/in/javier-cano-155a52284/","linkedin.com/in/javier-cano")}\ngithub    ${A("https://github.com/javi03ca","github.com/javi03ca")}`,
+    ls:()=>[C("experiencia.log"),C("stack/"),C("formacion.txt"),C("idiomas"),Y("contacto.sh")].join("  "),
+    date:()=>new Date().toLocaleString("es-ES"),
+    github:()=>"→ "+A("https://github.com/javi03ca","github.com/javi03ca"),
+    linkedin:()=>"→ "+A("https://www.linkedin.com/in/javier-cano-155a52284/","linkedin.com/in/javier-cano")
+  };
+  const alias={"cat experiencia.log":"experiencia","cat formacion.txt":"formacion","ls stack":"stack","ls stack/":"stack","cat idiomas":"idiomas","./contacto.sh":"contacto","formación":"formacion","pwd":"__pwd","exit":"__exit","sudo contratar-javier":"__hire"};
+  const print=h=>{out.insertAdjacentHTML("beforeend",h+"\n");out.scrollTop=out.scrollHeight};
+  function run(raw){
+    const line=raw.trim();
+    print(`${C("javier@alicante")}:${Y("~")}$ ${esc(line)}`);
+    if(!line)return;
+    const low=line.toLowerCase().replace(/\s+/g," ");
+    const key=alias[low]||low;
+    const [cmd,arg]=key.split(" ");
+    if(cmd==="clear"){out.innerHTML="";return}
+    if(cmd==="estilo"){
+      const s=arg==="neón"?"neon":arg;
+      if(styles.includes(s)){apply(s);print(M("estilo cambiado a "+s))}else print("uso: estilo terminal | minimal | neon");
+      return;
+    }
+    if(key==="__hire"){print("[sudo] contraseña para reclutador: ********\n"+C("✔ acceso concedido")+"\nSiguiente paso: escríbeme a "+Y("javi03ca@gmail.com"));return}
+    if(key==="__pwd"){print("/home/javier");return}
+    if(key==="__exit"){print("¿Ya te vas? Antes prueba "+C("contacto"));return}
+    if(low.startsWith("rm ")){print(Y("Permiso denegado.")+" Aquí el que protege los sistemas soy yo.");return}
+    if(low.startsWith("sudo")){print("Casi. Prueba con "+C("sudo contratar-javier"));return}
+    if(cmds[cmd]&&!arg){print(cmds[cmd]());return}
+    print(`comando no encontrado: ${esc(line)} · escribe ${C("help")}`);
+  }
+  const hist=[];let hi=0;
+  const names=[...Object.keys(cmds),"clear","estilo ","sudo contratar-javier"];
+  inp.addEventListener("keydown",e=>{
+    if(e.key==="Enter"){const v=inp.value;if(v.trim())hist.push(v);hi=hist.length;run(v);inp.value=""}
+    else if(e.key==="ArrowUp"){if(hi>0){hi--;inp.value=hist[hi]}e.preventDefault()}
+    else if(e.key==="ArrowDown"){if(hi<hist.length-1){hi++;inp.value=hist[hi]}else{hi=hist.length;inp.value=""}e.preventDefault()}
+    else if(e.key==="Tab"&&inp.value){
+      const m=names.filter(n=>n.startsWith(inp.value.toLowerCase()));
+      e.preventDefault();
+      if(m.length===1)inp.value=m[0];else if(m.length>1)print(M(m.join("  ")));
+    }
+  });
+  out.addEventListener("click",()=>{if(!String(getSelection()))inp.focus({preventScroll:true})});
+  document.querySelectorAll(".chips button").forEach(b=>b.addEventListener("click",()=>run(b.dataset.cmd)));
+  run("help");
+
+  apply(start);
+})();
+</script>
+</body>
+</html>
