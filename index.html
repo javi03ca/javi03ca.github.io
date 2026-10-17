@@ -234,6 +234,21 @@ section[id]{scroll-margin-top:84px}
 .tools{display:flex;align-items:center;gap:8px}
 .lang{font:600 13px/1 var(--mono);padding:11px 12px;border:1px solid var(--line);border-radius:calc(var(--radius) + 4px);background:var(--surface);color:var(--fg);cursor:pointer;transition:all .2s}
 .lang:hover{border-color:var(--accent);color:var(--accent)}
+.proj{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden}
+.proj-img{display:flex;align-items:center;justify-content:center;min-height:260px;padding:28px;background:#fbeee9;text-decoration:none;color:#9b5a63;font:italic 500 30px/1 "Newsreader",Georgia,serif}
+.proj-img img{max-width:82%;height:auto;transition:transform .4s}
+.proj-img:hover img{transform:scale(1.04)}
+.proj-img img + span{display:none}
+.proj-body{display:flex;flex-direction:column;gap:12px;padding:26px;min-width:0}
+.proj-body .k{font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2)}
+.proj-body h3{margin:0;font-family:var(--display);font-size:24px;line-height:1.2}
+.proj-desc{margin:0}
+.proj-feat{margin:0;padding-left:18px;color:var(--muted)}
+.proj-feat li::marker{color:var(--accent)}
+.proj-body .btn{align-self:flex-start}
+:root[data-style="neon"] .proj{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+:root[data-style="minimal"] .proj-body h3{font-weight:500}
+@media (max-width:700px){.proj{grid-template-columns:1fr}.proj-img{min-height:170px}}
 @media (max-width:860px){.nav{display:none}}
 @media (max-width:480px){.term-in label{font-size:12px}.term-out{height:300px;font-size:13px}}
 
@@ -260,7 +275,7 @@ section[id]{scroll-margin-top:84px}
   <div class="wrap">
     <a class="logo" href="#top">jcano<b>@</b>sec:~</a>
     <nav class="nav" aria-label="Secciones">
-      <a href="#aporto">aporto</a><a href="#experiencia">experiencia</a><a href="#stack">stack</a><a href="#formacion">formación</a><a href="#terminal">terminal</a><a href="#contacto">contacto</a>
+      <a href="#aporto">aporto</a><a href="#experiencia">experiencia</a><a href="#proyectos">proyectos</a><a href="#stack">stack</a><a href="#contacto">contacto</a>
     </nav>
     <div class="tools">
     <div class="switch" role="group" aria-label="Estilo del portfolio">
@@ -297,6 +312,7 @@ section[id]{scroll-margin-top:84px}
         <div class="stat"><b>2021</b><span>primer puesto técnico</span></div>
         <div class="stat"><b>3</b><span>titulaciones FP</span></div>
         <div class="stat"><b>4</b><span>idiomas</span></div>
+        <div class="stat"><b>B · A1</b><span>carnet de conducir</span></div>
       </div>
     </section>
 
@@ -376,8 +392,30 @@ section[id]{scroll-margin-top:84px}
       </div>
     </section>
 
+    <section id="proyectos">
+      <h2><span class="cmd">$ git log </span><span class="num">03</span>Proyectos</h2>
+      <article class="proj reveal">
+        <a class="proj-img" href="https://liliummbeautyy.github.io/" target="_blank" rel="noopener" aria-label="Abrir Lilium Beauty">
+          <img src="https://liliummbeautyy.github.io/assets/art/logo.webp" alt="Logotipo de Lilium Beauty" loading="lazy" onerror="this.remove()">
+          <span>Lilium Beauty</span>
+        </a>
+        <div class="proj-body">
+          <span class="k">2026 · App web</span>
+          <h3>Lilium Beauty</h3>
+          <p class="proj-desc">Aplicación para gestionar un estudio de uñas: agenda de citas, fichas de clientas, caja y catálogo de servicios, con contacto directo por WhatsApp.</p>
+          <ul class="proj-feat">
+            <li>Cuentas con inicio de sesión y recuperación de contraseña; los datos de cada usuaria se guardan en privado.</li>
+            <li>Modo sin cuenta para usarla solo en el dispositivo.</li>
+            <li>Instalable en el móvil como app (PWA), con tema claro y oscuro.</li>
+          </ul>
+          <div class="tags"><span class="tag">JavaScript</span><span class="tag">Supabase</span><span class="tag">PWA</span><span class="tag">Service Worker</span><span class="tag">GitHub Pages</span></div>
+          <a class="btn ghost" href="https://liliummbeautyy.github.io/" target="_blank" rel="noopener">Ver proyecto ↗</a>
+        </div>
+      </article>
+    </section>
+
     <section id="stack">
-      <h2><span class="cmd">$ ls </span><span class="num">03</span>Stack<span class="ext"> --all</span></h2>
+      <h2><span class="cmd">$ ls </span><span class="num">04</span>Stack<span class="ext"> --all</span></h2>
       <div class="skills">
         <div class="group reveal"><h3>Sistemas</h3><div class="tags">
           <span class="tag">Active Directory</span><span class="tag">Windows</span><span class="tag">Linux</span><span class="tag">Debian</span><span class="tag">Samba / SMB</span><span class="tag">Proxmox</span><span class="tag">Nextcloud</span><span class="tag">Citrix</span><span class="tag">Office 365</span>
@@ -397,7 +435,7 @@ section[id]{scroll-margin-top:84px}
     <section id="formacion">
       <div class="two">
         <div>
-          <h2><span class="cmd">$ cat </span><span class="num">04</span>Formación<span class="ext">.txt</span></h2>
+          <h2><span class="cmd">$ cat </span><span class="num">05</span>Formación<span class="ext">.txt</span></h2>
           <div class="edu">
             <article><span class="yrs">2023 — 2024</span><h3>Curso de Especialización en Ciberseguridad en Entornos TI</h3><p>IES Mare Nostrum</p></article>
             <article><span class="yrs">2021 — 2023</span><h3>CFGS Administración de Sistemas Informáticos en Red</h3><p>IES Mare Nostrum</p></article>
@@ -405,11 +443,11 @@ section[id]{scroll-margin-top:84px}
           </div>
         </div>
         <div>
-          <h2><span class="cmd">$ locale </span><span class="num">05</span>Idiomas</h2>
+          <h2><span class="cmd">$ locale </span><span class="num">06</span>Idiomas</h2>
           <div class="langs">
             <div class="lang"><div class="row">Español <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
-            <div class="lang"><div class="row">Valenciano <span>nativo</span></div><div class="meter"><i style="width:100%"></i></div></div>
-            <div class="lang"><div class="row">Inglés <span>profesional</span></div><div class="meter"><i style="width:72%"></i></div></div>
+            <div class="lang"><div class="row">Valenciano <span>B2</span></div><div class="meter"><i style="width:75%"></i></div></div>
+            <div class="lang"><div class="row">Inglés <span>medio</span></div><div class="meter"><i style="width:50%"></i></div></div>
             <div class="lang"><div class="row">Francés <span>básico</span></div><div class="meter"><i style="width:30%"></i></div></div>
           </div>
         </div>
@@ -417,7 +455,7 @@ section[id]{scroll-margin-top:84px}
     </section>
 
     <section id="terminal">
-      <h2><span class="cmd">$ ssh </span><span class="num">06</span>Terminal</h2>
+      <h2><span class="cmd">$ ssh </span><span class="num">07</span>Terminal</h2>
       <p class="lead">Conoce mi perfil como lo haría un sysadmin: escribe un comando o pulsa uno de los botones. El tabulador autocompleta y las flechas recuperan el historial.</p>
       <div class="term">
         <div class="term-top"><i></i><i></i><i></i><span>javier@alicante: ~ — bash</span></div>
@@ -436,7 +474,7 @@ section[id]{scroll-margin-top:84px}
     </section>
 
     <section id="contacto" class="contact">
-      <h2><span class="cmd">$ ping </span><span class="num">07</span>Hablemos</h2>
+      <h2><span class="cmd">$ ping </span><span class="num">08</span>Hablemos</h2>
       <p>Busco seguir creciendo en ciberseguridad y operaciones de sistemas. Si tienes un puesto, un proyecto o simplemente quieres hablar de seguridad, escríbeme.</p>
       <div class="mail">
         <code id="email">javi03ca@gmail.com</code>
@@ -553,7 +591,7 @@ section[id]{scroll-margin-top:84px}
 
   // textos en inglés (el español es el HTML original)
   const EN=[
-    [".nav a",["value","experience","stack","education","terminal","contact"]],
+    [".nav a",["value","experience","projects","stack","contact"]],
     [".switch button",["terminal","minimal","neon"]],
     [".eyebrow",['<span class="dot"></span> Open to new challenges · Alicante, Spain']],
     ["#role-a",["IT Operations"]],
@@ -561,7 +599,7 @@ section[id]{scroll-margin-top:84px}
     [".ctas .btn.primary",["Get in touch"]],
     [".uptime .lbl",['<span class="cmd">$ uptime · </span>Time working in IT']],
     [".uptime .note",["Adding up all my roles since 2021, internships included · updates live"]],
-    [".stat span",["companies in IT","first technical role","vocational degrees","languages"]],
+    [".stat span",["companies in IT","first technical role","vocational degrees","languages","driving licences"]],
     ["#aporto h2",['<span class="cmd">$ man </span><span class="num">01</span>What I bring']],
     [".serv .k",["Operations · NOC","Sysadmin","Security"]],
     [".serv h3",["Monitoring and response","Systems and networks","Everyday security"]],
@@ -574,13 +612,18 @@ section[id]{scroll-margin-top:84px}
       "<li>Management, maintenance and optimisation of the IT infrastructure.</li><li>Managing and renewing digital certificates (remote work, websites, client/server).</li><li>Administration and maintenance of servers, computers and corporate websites.</li><li>Switch configuration and monitoring.</li><li>Administration of Active Directory, SMB (Windows and Linux) and Nextcloud.</li>",
       "<li>First real hands-on experience with cybersecurity: protecting information and mitigating threats.</li><li>Work in secure and resilient digital environments.</li>",
       "<li>Preventive and corrective maintenance of computers and systems.</li><li>Fast fault diagnosis and repair.</li>"]],
+    ["#proyectos h2",['<span class="cmd">$ git log </span><span class="num">03</span>Projects']],
+    [".proj-body .k",["2026 · Web app"]],
+    [".proj-desc",["An app to run a nail studio: appointment calendar, client records, cash register and service catalogue, with direct contact via WhatsApp."]],
+    [".proj-feat",["<li>Accounts with sign-in and password recovery; each user’s data is kept private.</li><li>Account-free mode to use it on a single device.</li><li>Installable on mobile as an app (PWA), with light and dark themes.</li>"]],
+    [".proj-body .btn",["View project ↗"]],
     [".group h3",["Systems","Networking","Security","Tools"]],
-    [".tag",["Active Directory","Windows","Linux","Debian","Samba / SMB","Proxmox","Nextcloud","Citrix","Office 365","VLAN","VPN","Switching","Nginx","Sophos","SSL/TLS certificates","Monitoring","Splunk","Azure Sentinel","Log analysis","Threat Intelligence","Threat analysis & mitigation","Analysis in isolated environments","PAM","DMARC","Antispam","Protect","Incident management","Jira","Confluence","CMS"]],
-    ["#formacion h2",['<span class="cmd">$ cat </span><span class="num">04</span>Education<span class="ext">.txt</span>','<span class="cmd">$ locale </span><span class="num">05</span>Languages']],
+    [".skills .tag",["Active Directory","Windows","Linux","Debian","Samba / SMB","Proxmox","Nextcloud","Citrix","Office 365","VLAN","VPN","Switching","Nginx","Sophos","SSL/TLS certificates","Monitoring","Splunk","Azure Sentinel","Log analysis","Threat Intelligence","Threat analysis & mitigation","Analysis in isolated environments","PAM","DMARC","Antispam","Protect","Incident management","Jira","Confluence","CMS"]],
+    ["#formacion h2",['<span class="cmd">$ cat </span><span class="num">05</span>Education<span class="ext">.txt</span>','<span class="cmd">$ locale </span><span class="num">06</span>Languages']],
     [".edu h3",["Specialisation Course in Cybersecurity for IT Environments","Higher VET Diploma in Networked Computer Systems Administration","VET Diploma in Microcomputer Systems and Networks"]],
-    [".lang .row",["Spanish <span>native</span>","Valencian <span>native</span>","English <span>professional</span>","French <span>basic</span>"]],
+    [".lang .row",["Spanish <span>native</span>","Valencian <span>B2</span>","English <span>intermediate</span>","French <span>basic</span>"]],
     [".lead",["Explore my profile the way a sysadmin would: type a command or tap one of the buttons. Tab autocompletes and the arrow keys bring back your history."]],
-    ["#contacto h2",['<span class="cmd">$ ping </span><span class="num">07</span>Let’s talk']],
+    ["#contacto h2",['<span class="cmd">$ ping </span><span class="num">08</span>Let’s talk']],
     [".contact p",["I’m looking to keep growing in cybersecurity and systems operations. If you have a role, a project, or just want to talk security, drop me a line."]],
     ["#copy",["Copy email"]],
     ["#foot",["in the IT world since 2019"]]
@@ -596,6 +639,7 @@ section[id]{scroll-margin-top:84px}
     help:()=>L("Comandos disponibles:","Available commands:")+"\n"+[
       ["whoami",L("quién soy","who I am")],
       [L("experiencia","experience"),L("dónde he trabajado","where I’ve worked")],
+      [L("proyectos","projects"),L("lo que he construido","what I’ve built")],
       ["stack",L("con qué trabajo","what I work with")],
       [L("formacion","education"),L("qué he estudiado","what I’ve studied")],
       [L("idiomas","languages"),L("qué idiomas hablo","languages I speak")],
@@ -624,15 +668,16 @@ section[id]{scroll-margin-top:84px}
       ["2021–23",L("CFGS Administración de Sistemas Informáticos en Red","Higher VET · Networked Systems Administration")],
       ["2019–21",L("CFGM Sistemas Microinformáticos y Redes","VET · Microcomputer Systems and Networks")]
     ].map(([a,b])=>M(a.padEnd(9))+b).join("\n")+"\n"+M("IES Mare Nostrum"),
-    idiomas:()=>[[L("español","spanish"),10,L("nativo","native")],[L("valenciano","valencian"),10,L("nativo","native")],[L("inglés","english"),7,L("profesional","professional")],[L("francés","french"),3,L("básico","basic")]].map(([n,k,t])=>n.padEnd(11)+C("█".repeat(k))+M("░".repeat(10-k))+" "+t).join("\n"),
+    idiomas:()=>[[L("español","spanish"),10,L("nativo","native")],[L("valenciano","valencian"),7,"B2"],[L("inglés","english"),5,L("medio","intermediate")],[L("francés","french"),3,L("básico","basic")]].map(([n,k,t])=>n.padEnd(11)+C("█".repeat(k))+M("░".repeat(10-k))+" "+t).join("\n"),
     uptime:()=>`${C("up")} ${big.textContent.trim()} ${L("trabajando en IT","working in IT")}`,
     contacto:()=>`email     ${Y("javi03ca@gmail.com")}\nlinkedin  ${A(LI,"linkedin.com/in/javier-cano")}\ngithub    ${A(GH,"github.com/javi03ca")}`,
     ls:()=>[C(L("experiencia.log","experience.log")),C("stack/"),C(L("formacion.txt","education.txt")),C(L("idiomas","languages")),Y(L("contacto.sh","contact.sh"))].join("  "),
+    proyectos:()=>`${Y("Lilium Beauty")} · ${L("app web para estudios de uñas","web app for nail studios")}\n${M("JavaScript · Supabase · PWA")}\n→ ${A("https://liliummbeautyy.github.io/","liliummbeautyy.github.io")}`,
     date:()=>new Date().toLocaleString(L("es-ES","en-GB")),
     github:()=>"→ "+A(GH,"github.com/javi03ca"),
     linkedin:()=>"→ "+A(LI,"linkedin.com/in/javier-cano")
   };
-  const alias={"experience":"experiencia","contact":"contacto","education":"formacion","formación":"formacion","languages":"idiomas",
+  const alias={"projects":"proyectos","experience":"experiencia","contact":"contacto","education":"formacion","formación":"formacion","languages":"idiomas",
     "cat experiencia.log":"experiencia","cat experience.log":"experiencia","cat formacion.txt":"formacion","cat education.txt":"formacion",
     "ls stack":"stack","ls stack/":"stack","cat idiomas":"idiomas","cat languages":"idiomas","./contacto.sh":"contacto","./contact.sh":"contacto",
     "pwd":"__pwd","exit":"__exit","sudo contratar-javier":"__hire","sudo hire-javier":"__hire"};
@@ -694,6 +739,7 @@ section[id]{scroll-margin-top:84px}
     inp.placeholder=L("escribe un comando…","type a command…");
     langBtn.textContent=L("EN","ES");
     langBtn.setAttribute("aria-label",L("Ver en inglés","View in Spanish"));
+    if(typed)typed.textContent=words()[0];
     renderDur();tick();
     out.innerHTML=welcome()+"\n";
     run("help");
